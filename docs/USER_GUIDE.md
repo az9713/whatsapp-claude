@@ -53,24 +53,66 @@ Before using this guide, ensure:
 
 ## Getting Started
 
-### Starting the System
+### Step 1: Install Dependencies
 
-On your computer, open a terminal and run:
+Open a terminal and navigate to the project folder:
 
 ```bash
-cd /path/to/whatsapp-claude
+# Navigate to the project directory
+cd whatsapp-claude
+
+# Install main dependencies
+npm install
+
+# Install Remotion dependencies (for video features)
+cd remotion-videos
+npm install
+cd ..
+
+# Install Python dependencies (optional, for avatar videos)
+pip install -r video-pipeline/requirements.txt
+```
+
+### Step 2: Configure API Keys
+
+Create or edit the `.env` file in the project root:
+
+```bash
+# Required for voice generation
+OPENAI_API_KEY=sk-your-openai-api-key-here
+
+# Optional for avatar videos
+FAL_KEY=your-fal-api-key-here
+```
+
+### Step 3: Start the Bot
+
+```bash
 npm start
 ```
 
 You'll see:
 ```
 🚀 Starting WhatsApp-Claude Bridge...
+
+📱 Scan this QR code with WhatsApp:
+[QR CODE APPEARS HERE]
+
+🔐 Authentication successful
 ✅ WhatsApp bot is ready!
-📁 Workspace: /path/to/whatsapp-claude
 📝 Send "/claude <task>" to yourself to execute commands
 ```
 
-### Sending Your First Command
+### Step 4: Link Your Phone
+
+1. Open WhatsApp on your phone
+2. Go to **Settings** → **Linked Devices** → **Link a Device**
+3. Point your camera at the QR code in the terminal
+4. Wait for "Authentication successful"
+
+**Note**: After the first time, you won't need to scan again (session is saved).
+
+### Step 5: Send Your First Command
 
 1. Open WhatsApp on your phone
 2. Find your own contact (or "Message yourself" chat)
@@ -78,9 +120,36 @@ You'll see:
 4. Press send
 5. Wait for the response (usually 5-30 seconds)
 
+### Step 6: Test Video Features (Optional)
+
+Open a **second terminal** (keep the bot running):
+
+```bash
+cd whatsapp-claude/remotion-videos
+npx remotion studio
+```
+
+This opens a browser at http://localhost:3000 where you can preview all video compositions.
+
+To render a video:
+```bash
+npx remotion render CountdownTimer ../output/countdown.mp4
+```
+
 ### Understanding Responses
 
 Responses come back as WhatsApp messages. Long responses are split into multiple messages labeled "Part 1/3", "Part 2/3", etc.
+
+### Quick Test Checklist
+
+| Test | Command | Expected |
+|------|---------|----------|
+| Bot responds | `/claude hello` | Receive greeting |
+| Create file | `/claude create file output/test.txt with "hello"` | File created |
+| List files | `/claude list files in output folder` | See file list |
+| Voice (needs API key) | `/claude generate voice saying "test" to output/test.mp3` | Audio file |
+| Video preview | `npx remotion studio` | Browser opens |
+| Video render | `npx remotion render CountdownTimer out.mp4` | MP4 created |
 
 ---
 

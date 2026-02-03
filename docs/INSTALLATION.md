@@ -449,14 +449,21 @@ Open WhatsApp > Settings > Linked Devices > Link a Device
 
 ## Step 11: Verify Installation
 
-### Test 1: Simple Message
+Run through these tests to make sure everything is working.
 
-Send this to yourself on WhatsApp:
+### Test 1: Basic Bot Connection
+
+Send this message **to yourself** on WhatsApp:
 ```
-/claude hello
+/claude hello, are you working?
 ```
 
-**Expected**: A response from Claude
+**Expected**: Claude responds with a greeting
+
+**If it doesn't work**:
+- Make sure the message starts with `/claude ` (with a space)
+- Check the terminal for error messages
+- Make sure you're messaging yourself, not a group
 
 ### Test 2: Create a File
 
@@ -464,24 +471,96 @@ Send this to yourself on WhatsApp:
 /claude create a file called test.txt in the output folder with "Hello World"
 ```
 
-**Expected**: File created at `output/test.txt`
+**Expected**:
+- Confirmation message in WhatsApp
+- File created at `output/test.txt`
 
-### Test 3: Generate Voice (if OpenAI key is set)
+**Verify**: Check the `output/` folder in the project directory
+
+### Test 3: List Files
 
 ```
-/claude generate voice saying "Installation complete" to output/test.mp3
+/claude list all files in the current directory
 ```
 
-**Expected**: Audio file at `output/test.mp3`
+**Expected**: A list of project files (package.json, whatsapp-bot.js, etc.)
 
-### Test 4: Preview Remotion (separate terminal)
+### Test 4: Generate Voice (requires OpenAI API key)
+
+```
+/claude generate voice saying "Testing one two three" and save to output/test-voice.mp3
+```
+
+**Expected**:
+- Audio file created at `output/test-voice.mp3`
+- You can play the file and hear "Testing one two three"
+
+**If it fails**: Check that `OPENAI_API_KEY` is set correctly in `.env`
+
+### Test 5: Preview Remotion Videos
+
+Open a **new terminal window** (keep the bot running in the first one):
 
 ```bash
+# Navigate to project folder
+cd whatsapp-claude
+
+# Go to Remotion folder
 cd remotion-videos
+
+# Start preview server
 npx remotion studio
 ```
 
-**Expected**: Browser opens at http://localhost:3000
+**Expected**:
+- Browser opens automatically at http://localhost:3000
+- You see a list of video compositions on the left
+- Click any composition to preview it
+
+### Test 6: Render a Video
+
+In the Remotion terminal:
+
+```bash
+# Render a 7-second countdown video
+npx remotion render CountdownTimer ../output/countdown.mp4
+```
+
+**Expected**:
+- Rendering progress shows in terminal
+- Video file created at `output/countdown.mp4`
+- Video shows 3-2-1-GO! animation
+
+**Rendering time**: About 30 seconds to 2 minutes depending on your computer
+
+### Test 7: Render Video via WhatsApp
+
+Back in WhatsApp, send:
+
+```
+/claude render the CountdownTimer video and save it to output/countdown-test.mp4
+```
+
+**Expected**: Video rendered and saved
+
+---
+
+## Quick Test Checklist
+
+Use this checklist to verify your installation:
+
+| # | Test | Command/Action | Expected Result | ✓ |
+|---|------|----------------|-----------------|---|
+| 1 | Bot responds | `/claude hello` | Gets response | ☐ |
+| 2 | File creation | `/claude create file output/test.txt with "hi"` | File created | ☐ |
+| 3 | File listing | `/claude list files in output folder` | Shows files | ☐ |
+| 4 | Voice generation | `/claude generate voice saying "test" to output/test.mp3` | Audio file created | ☐ |
+| 5 | Remotion preview | `npx remotion studio` | Browser opens at localhost:3000 | ☐ |
+| 6 | Video render | `npx remotion render CountdownTimer out.mp4` | MP4 file created | ☐ |
+
+**All tests passed?** You're ready to go! See [QUICK_START.md](QUICK_START.md) for more examples.
+
+**Some tests failed?** Check [Troubleshooting](#troubleshooting-installation-issues) below.
 
 ---
 

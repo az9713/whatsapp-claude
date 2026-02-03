@@ -11,6 +11,100 @@ Make sure you have completed the [Installation Guide](INSTALLATION.md). You shou
 
 ---
 
+## Testing Your Setup
+
+Before diving into use cases, let's make sure everything is working.
+
+### Step 1: Start the Bot
+
+Open a terminal and navigate to the project folder:
+
+```bash
+# Navigate to project directory
+cd whatsapp-claude
+
+# Install dependencies (first time only)
+npm install
+
+# Start the bot
+npm start
+```
+
+You should see:
+```
+🚀 Starting WhatsApp-Claude Bridge...
+
+📱 Scan this QR code with WhatsApp:
+[QR CODE]
+
+🔐 Authentication successful
+✅ WhatsApp bot is ready!
+```
+
+### Step 2: Link Your Phone
+
+1. Open WhatsApp on your phone
+2. Go to **Settings** → **Linked Devices** → **Link a Device**
+3. Scan the QR code shown in your terminal
+4. Wait for "Authentication successful" message
+
+### Step 3: Quick Verification Test
+
+Send this message **to yourself** on WhatsApp:
+```
+/claude hello
+```
+
+**Expected**: You receive a response from Claude within a few seconds.
+
+### Step 4: Test Remotion (Video System)
+
+Open a **second terminal** (keep the bot running):
+
+```bash
+# Navigate to project
+cd whatsapp-claude
+
+# Go to Remotion folder
+cd remotion-videos
+
+# Install dependencies (first time only)
+npm install
+
+# Start preview server
+npx remotion studio
+```
+
+**Expected**: Browser opens at http://localhost:3000 showing video compositions.
+
+### Step 5: Test Video Rendering
+
+In the Remotion terminal:
+
+```bash
+npx remotion render CountdownTimer ../output/test-countdown.mp4
+```
+
+**Expected**: A video file is created at `output/test-countdown.mp4`
+
+---
+
+## Quick Test Checklist
+
+| Test | How to Test | Expected Result |
+|------|-------------|-----------------|
+| Bot running | Check terminal | Shows "WhatsApp bot is ready!" |
+| Bot responds | Send `/claude hello` | Receive a response |
+| Create file | Send `/claude create file output/test.txt with "hello"` | File appears in output/ |
+| Remotion preview | Run `npx remotion studio` | Browser opens at localhost:3000 |
+| Video render | Run `npx remotion render CountdownTimer out.mp4` | MP4 file created |
+
+**All working?** Continue to the use cases below!
+
+**Something not working?** See [Troubleshooting Guide](TROUBLESHOOTING.md)
+
+---
+
 ## How to Send Commands
 
 1. Open WhatsApp on your phone
