@@ -99,6 +99,8 @@ To start fresh: `/claude --new <new topic>`
 
 > **Important**: When requesting videos, always say "use Remotion skills" in your prompt. This ensures Claude Code uses the correct video generation tools.
 
+**See it in action:** [Download demo video](demos/bees-and-owls.mp4) - 18-second video created entirely via WhatsApp command.
+
 12 pre-built video templates ready to render:
 
 | Composition | Duration | Description |
