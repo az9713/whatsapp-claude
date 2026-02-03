@@ -49,5 +49,8 @@ docs/*.txt
 # Temp files from bot
 .claude-task-temp.txt
 
+# Local Claude settings (user-specific)
+.claude/settings.local.json
+
 # Ignore directory
 .ignore/
