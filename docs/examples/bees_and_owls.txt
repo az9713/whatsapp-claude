@@ -1,5 +1,4 @@
-
-simon@Simon_laptop MINGW64 ~/Downloads/whatsapp-claude_me (main)
+user@laptop MINGW64 ~/whatsapp-claude (main)
 $ npm start
 
 > whatsapp-claude@1.0.0 start
@@ -9,20 +8,20 @@ $ npm start
 
 🔐 Authentication successful
 ✅ WhatsApp bot is ready!
-📁 Workspace: C:\Users\simon\Downloads\whatsapp-claude_me
+📁 Workspace: /path/to/whatsapp-claude
 📝 Send "/claude <task>" to yourself to execute commands
 
-[DEBUG] Message received - from: 16509069710@c.us, fromMe: true, body: /claude use remotion skills to create a video abou
+[DEBUG] Message received - from: 1234567890@c.us, fromMe: true, body: /claude use remotion skills to create a video abou
 
 📥 Received task: use remotion skills to create a video about bees and owls. Do not ask me any questions. Render the video.
 📎 Continue conversation: false
 ⏳ Executing...
-[DEBUG] Message received - from: 105282801811711@lid, fromMe: true, body: 🤖 Processing your request...
+[DEBUG] Message received - from: 123456789@lid, fromMe: true, body: 🤖 Processing your request...
 [DEBUG] Skipping - no /claude prefix
 [DEBUG] Spawning claude process...
 [DEBUG] Task: use remotion skills to create a video about bees and owls. Do not ask me any questions. Render the video.
 [DEBUG] Continue: false
-[DEBUG] CWD: C:\Users\simon\Downloads\whatsapp-claude_me
+[DEBUG] CWD: /path/to/whatsapp-claude
 [DEBUG] Quoted task: "use remotion skills to create a video about bees and owls. Do not ask me any questions. Render the video."
 [DEBUG] Process spawned with PID: 34748
 [DEBUG] stdout (753 bytes)
@@ -43,7 +42,5 @@ The video has been created and rendered successfully. Here's what was done:
 - 2.1 MB file size
 [DEBUG] Process closed with code: 0
 ✅ Task completed in 503.5s
-[DEBUG] Message received - from: 105282801811711@lid, fromMe: true, body: The video has been created and rendered successful
+[DEBUG] Message received - from: 123456789@lid, fromMe: true, body: The video has been created and rendered successful
 [DEBUG] Skipping - no /claude prefix
-
-s
