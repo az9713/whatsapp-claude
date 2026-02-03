@@ -1,0 +1,26 @@
+{
+  "name": "whatsapp-claude",
+  "version": "1.0.0",
+  "description": "WhatsApp-to-Claude-Code agent system with browser automation and video production",
+  "main": "whatsapp-bot.js",
+  "scripts": {
+    "start": "node whatsapp-bot.js",
+    "tts": "node scripts/tts.js"
+  },
+  "dependencies": {
+    "whatsapp-web.js": "^1.26.0",
+    "qrcode-terminal": "^0.12.0",
+    "dotenv": "^16.4.5",
+    "openai": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "whatsapp",
+    "claude",
+    "automation",
+    "ai-agent"
+  ],
+  "license": "MIT"
+}

@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+.wwebjs_auth/
+.wwebjs_cache/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Output files
+output/
+assets/downloads/
+
+# Logs
+*.log
+/var/log/agent.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+.venv/
+*.egg-info/
+
+# Remotion
+remotion-videos/out/
+remotion-videos/.remotion/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Ignore directory
+.ignore/
