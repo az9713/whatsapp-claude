@@ -230,6 +230,8 @@ MIT
 
 ### Inspiration
 
+**WhatsApp-Claude** is a much simplified version of [ClawdBot](https://github.com/huntersgordon/clawdbot) / [MoltBot](https://github.com/huntersgordon/moltbot) / [OpenClaw](https://github.com/SheltonCarvmo/openclaw), focusing on the core WhatsApp-to-Claude bridge functionality.
+
 This project was inspired by the YouTube video **"My Most INSANE AI Agent Ever (OpenClaw Clone)"**.
 
 [Watch the original video](https://www.youtube.com/watch?v=_KN5iAQfz6I)
