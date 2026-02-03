@@ -43,5 +43,11 @@ remotion-videos/.remotion/
 *.tmp
 *.temp
 
+# Draft/working documents
+docs/*.txt
+
+# Temp files from bot
+.claude-task-temp.txt
+
 # Ignore directory
 .ignore/

@@ -122,7 +122,7 @@ Flow:
 │  │                  Claude Executor                       │ │
 │  │  • spawn('claude', ['-p', task, ...])                 │ │
 │  │  • Capture stdout/stderr                              │ │
-│  │  • Handle timeout (10 minutes)                        │ │
+│  │  • Handle timeout (20 minutes)                        │ │
 │  └───────────────────────────────────────────────────────┘ │
 │                           │                                 │
 │                           ▼                                 │
@@ -142,6 +142,8 @@ Flow:
 2. **Self-messages only**: Security feature - only processes messages you send to yourself
 3. **Child process**: Claude runs as separate process for isolation
 4. **Chunking**: WhatsApp has 4096 char limit; long responses are split
+5. **Auto-continue**: After first message, all subsequent messages automatically continue the conversation using Claude's `--continue` flag
+6. **20-minute timeout**: Long tasks like video rendering have enough time to complete
 
 ### Skills System (`.claude/skills/`)
 

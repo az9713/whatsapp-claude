@@ -140,6 +140,37 @@ npx remotion render CountdownTimer ../output/countdown.mp4
 
 Responses come back as WhatsApp messages. Long responses are split into multiple messages labeled "Part 1/3", "Part 2/3", etc.
 
+### Conversation Memory (Auto-Continue)
+
+The bot automatically remembers your conversation context:
+
+```
+You:    /claude create a video about cooking
+Claude: "What style? 1) Tutorial 2) Recipe 3) Tips 4) Montage"
+
+You:    /claude option 2 please
+Claude: [Remembers the cooking topic, continues with recipe style]
+
+You:    /claude make it 30 seconds long
+Claude: [Still knows you're talking about the cooking recipe video]
+```
+
+**How it works:**
+- First `/claude` message starts a new conversation
+- All subsequent messages automatically continue that conversation
+- Claude remembers everything you discussed
+
+**To start a fresh conversation:**
+```
+/claude --new what is the weather today
+```
+or
+```
+/claude -n what is the weather today
+```
+
+The `--new` or `-n` flag clears the conversation history and starts fresh.
+
 ### Quick Test Checklist
 
 | Test | Command | Expected |
@@ -301,8 +332,10 @@ Then open http://localhost:3000 in your browser to see all compositions.
 ### Video Rendering Tips
 
 1. **Rendering takes time**: A 10-second video might take 30 seconds to 2 minutes
-2. **Check composition names**: Use exact names like "ClaudeCodeIntro" not "claude code intro"
-3. **Vertical videos**: Use "VerticalShort" for TikTok/Reels format
+2. **Timeout is 20 minutes**: Complex tasks won't time out too quickly
+3. **Check composition names**: Use exact names like "ClaudeCodeIntro" not "claude code intro"
+4. **Vertical videos**: Use "VerticalShort" for TikTok/Reels format
+5. **Use conversation memory**: Ask Claude to create a video, answer its questions, and keep refining
 
 ---
 
@@ -586,10 +619,11 @@ Minute Hour Day Month Weekday
 
 ## Getting Help
 
-1. **Quick Start Guide**: [QUICK_START.md](QUICK_START.md)
-2. **Skills Reference**: [SKILLS_REFERENCE.md](SKILLS_REFERENCE.md)
-3. **Troubleshooting**: [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
-4. **Glossary**: [GLOSSARY.md](GLOSSARY.md) - Technical terms explained
+1. **How It Works**: [HOW_IT_WORKS.md](HOW_IT_WORKS.md) - Understand the magic behind iPhone-to-laptop control
+2. **Quick Start Guide**: [QUICK_START.md](QUICK_START.md)
+3. **Skills Reference**: [SKILLS_REFERENCE.md](SKILLS_REFERENCE.md)
+4. **Troubleshooting**: [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+5. **Glossary**: [GLOSSARY.md](GLOSSARY.md) - Technical terms explained
 
 ---
 

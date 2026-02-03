@@ -91,6 +91,19 @@ whatsapp-claude/
 npm start                    # Start WhatsApp bot
 ```
 
+### Conversation Memory
+
+The bot automatically continues your conversation after the first message:
+
+```
+/claude create a video about space       # Starts new conversation
+/claude make it 30 seconds               # Continues (remembers "space video")
+/claude add some epic music              # Still continues
+/claude --new what is 2+2                # Starts FRESH conversation
+```
+
+**Timeout**: Tasks have 20 minutes to complete (good for video rendering).
+
 ### Video Creation
 ```bash
 cd remotion-videos
@@ -107,11 +120,12 @@ node scripts/tts.js "text" output.mp3 --voice nova
 
 | Document | Purpose | Audience |
 |----------|---------|----------|
+| [HOW_IT_WORKS.md](docs/HOW_IT_WORKS.md) | **Start Here** - Demystifies the iPhone-to-laptop magic | Everyone |
 | [QUICK_START.md](docs/QUICK_START.md) | Get running in 5 minutes with examples | Everyone |
 | [USER_GUIDE.md](docs/USER_GUIDE.md) | Complete usage instructions | End users |
 | [DEVELOPER_GUIDE.md](docs/DEVELOPER_GUIDE.md) | Extend and modify the system | Developers |
 | [INSTALLATION.md](docs/INSTALLATION.md) | Step-by-step setup | Everyone |
-| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | How the system works | Developers |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Technical system design | Developers |
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | Fix common problems | Everyone |
 | [SKILLS_REFERENCE.md](docs/SKILLS_REFERENCE.md) | All skills explained | Everyone |
 | [GLOSSARY.md](docs/GLOSSARY.md) | Technical terms explained | Beginners |

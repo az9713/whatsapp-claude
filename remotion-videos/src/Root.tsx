@@ -15,6 +15,10 @@ import { ThreadToVideo } from "./compositions/ThreadToVideo";
 import { Audiogram } from "./compositions/Audiogram";
 import { VerticalShort } from "./compositions/VerticalShort";
 import { NewsVideo } from "./compositions/NewsVideo";
+import { MilestoneReveal } from "./compositions/MilestoneReveal";
+import { AsciiArtShowcase } from "./compositions/AsciiArtShowcase";
+import { CatsAndDogs } from "./compositions/CatsAndDogs";
+import { BeesAndOwls } from "./compositions/BeesAndOwls";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -201,6 +205,82 @@ console.log(greet("World"));`,
           headline: "AI News Update",
           story: "Today's top story in artificial intelligence...",
           source: "AI Daily",
+        }}
+      />
+
+      <Composition
+        id="MilestoneReveal"
+        component={MilestoneReveal}
+        durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{
+          title: "2024 Highlights",
+          milestones: [
+            { label: "Lines of Code", value: 50000, icon: "💻" },
+            { label: "Commits", value: 342, icon: "📝" },
+            { label: "Projects Shipped", value: 12, icon: "🚀" },
+            { label: "Cups of Coffee", value: 847, icon: "☕" },
+          ],
+          celebrationText: "Here's to an amazing year!",
+        }}
+      />
+
+      <Composition
+        id="AsciiArtShowcase"
+        component={AsciiArtShowcase}
+        durationInFrames={900}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{
+          title: "The Art of ASCII",
+          subtitle: "When Characters Become Art",
+        }}
+      />
+
+      <Composition
+        id="CatsAndDogs"
+        component={CatsAndDogs}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{
+          title: "Cats vs Dogs",
+          catFacts: [
+            "Cats sleep 12-16 hours a day",
+            "A cat's purr vibrates at 25-150 Hz",
+            "Cats can rotate their ears 180°",
+          ],
+          dogFacts: [
+            "Dogs have 300 million smell receptors",
+            "A dog's nose print is unique",
+            "Dogs dream just like humans",
+          ],
+        }}
+      />
+
+      <Composition
+        id="BeesAndOwls"
+        component={BeesAndOwls}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{
+          title: "Bees & Owls",
+          beeFacts: [
+            "Bees can fly up to 15 mph",
+            "A single bee produces 1/12 tsp of honey in its lifetime",
+            "Bees communicate through dance",
+          ],
+          owlFacts: [
+            "Owls can rotate their heads 270°",
+            "Owls have 3 eyelids",
+            "Some owls can hear prey under snow",
+          ],
         }}
       />
     </>

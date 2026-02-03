@@ -117,6 +117,22 @@ npx remotion render CountdownTimer ../output/test-countdown.mp4
 /claude hello, what can you do?
 ```
 
+### Conversation Memory
+
+The bot remembers your conversation! After your first message:
+
+```
+You:    /claude create a video about cats
+Claude: "What style do you want? 1) Funny 2) Educational 3) Cute"
+
+You:    /claude option 3
+Claude: [Remembers you're talking about cats, continues with cute style]
+```
+
+**To start fresh:** `/claude --new <new topic>`
+
+**Want to understand the magic?** See [How It Works](HOW_IT_WORKS.md) for a detailed explanation of how your iPhone controls your laptop.
+
 ---
 
 ## 10 Quick Win Use Cases

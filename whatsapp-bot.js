@@ -16,7 +16,10 @@ require('dotenv').config();
 const WORKSPACE = process.env.WORKSPACE || process.cwd();
 const COMMAND_PREFIX = '/claude ';
 const MAX_MESSAGE_LENGTH = 4096;
-const EXECUTION_TIMEOUT = 600000; // 10 minutes
+const EXECUTION_TIMEOUT = 1200000; // 20 minutes
+
+// Track conversation state - first message starts new, subsequent messages continue
+let hasActiveConversation = false;
 
 // Initialize WhatsApp client with persistent auth
 const client = new Client({
@@ -54,16 +57,20 @@ client.on('disconnected', (reason) => {
 
 // Message Handling (Self-Messages Only)
 client.on('message_create', async (message) => {
-  // Only process messages from self
-  // Linked devices use @lid suffix, primary device uses @c.us
-  const isFromSelf = message.fromMe ||
-    message.from.endsWith('@lid') ||
-    message.from.endsWith('@c.us');
+  // Debug: Log ALL messages to see what's coming through
+  console.log(`[DEBUG] Message received - from: ${message.from}, fromMe: ${message.fromMe}, body: ${message.body.substring(0, 50)}`);
 
-  if (!isFromSelf) return;
+  // Only process messages from self (sent by you)
+  if (!message.fromMe) {
+    console.log('[DEBUG] Skipping - not from self');
+    return;
+  }
 
   // Check for /claude command
-  if (!message.body.startsWith(COMMAND_PREFIX)) return;
+  if (!message.body.startsWith(COMMAND_PREFIX)) {
+    console.log('[DEBUG] Skipping - no /claude prefix');
+    return;
+  }
 
   const task = message.body.slice(COMMAND_PREFIX.length).trim();
   if (!task) {
@@ -71,7 +78,15 @@ client.on('message_create', async (message) => {
     return;
   }
 
-  console.log(`\n📥 Received task: ${task}`);
+  // Check for explicit "new" command to start fresh conversation
+  const startNew = task.startsWith('--new ') || task.startsWith('-n ');
+  const actualTask = startNew ? task.replace(/^(--new|-n)\s+/, '') : task;
+
+  // Auto-continue after first message (unless --new flag used)
+  const continueConversation = hasActiveConversation && !startNew;
+
+  console.log(`\n📥 Received task: ${actualTask}`);
+  console.log(`📎 Continue conversation: ${continueConversation}`);
   console.log(`⏳ Executing...`);
 
   // Send acknowledgment
@@ -79,8 +94,11 @@ client.on('message_create', async (message) => {
 
   try {
     const startTime = Date.now();
-    const response = await executeClaudeTask(task);
+    const response = await executeClaudeTask(actualTask, continueConversation);
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+
+    // Mark that we now have an active conversation for future --continue
+    hasActiveConversation = true;
 
     console.log(`✅ Task completed in ${duration}s`);
 
@@ -95,33 +113,58 @@ client.on('message_create', async (message) => {
 
 /**
  * Execute a task using Claude Code CLI
+ * @param {string} task - The task to execute
+ * @param {boolean} continueConversation - Whether to continue the previous conversation
  */
-function executeClaudeTask(task) {
+function executeClaudeTask(task, continueConversation = false) {
   return new Promise((resolve, reject) => {
     let output = '';
     let errorOutput = '';
 
+    console.log('[DEBUG] Spawning claude process...');
+    console.log(`[DEBUG] Task: ${task}`);
+    console.log(`[DEBUG] Continue: ${continueConversation}`);
+    console.log(`[DEBUG] CWD: ${WORKSPACE}`);
+
     // Spawn Claude Code process
-    const claude = spawn('claude', [
-      '-p', task,
+    // Wrap task in quotes to preserve spaces when shell parses the command
+    const quotedTask = `"${task.replace(/"/g, '\\"')}"`;
+    console.log(`[DEBUG] Quoted task: ${quotedTask}`);
+
+    // Build arguments array
+    const args = [
+      '-p', quotedTask,
       '--dangerously-skip-permissions',
       '--print'
-    ], {
+    ];
+
+    // Add -c flag to continue previous conversation
+    if (continueConversation) {
+      args.unshift('-c');
+      console.log('[DEBUG] Adding -c flag to continue conversation');
+    }
+
+    const claude = spawn('claude', args, {
       cwd: WORKSPACE,
       shell: true,
       env: { ...process.env }
     });
 
+    console.log(`[DEBUG] Process spawned with PID: ${claude.pid}`);
+
+    // Close stdin to prevent waiting for input
+    claude.stdin.end();
+
     // Set timeout
     const timeout = setTimeout(() => {
       claude.kill('SIGTERM');
-      reject(new Error('Task timed out after 10 minutes'));
+      reject(new Error('Task timed out after 20 minutes'));
     }, EXECUTION_TIMEOUT);
 
     claude.stdout.on('data', (data) => {
       const chunk = data.toString();
+      console.log(`[DEBUG] stdout (${chunk.length} bytes)`);
       output += chunk;
-      // Stream progress to console
       process.stdout.write(chunk);
     });
 
@@ -130,6 +173,7 @@ function executeClaudeTask(task) {
     });
 
     claude.on('close', (code) => {
+      console.log(`[DEBUG] Process closed with code: ${code}`);
       clearTimeout(timeout);
 
       if (code === 0) {

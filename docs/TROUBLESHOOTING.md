@@ -175,20 +175,44 @@ ffmpeg -version
 
 ### Problem: Claude Task Times Out
 
-**Symptoms**: "Task timed out after 10 minutes"
+**Symptoms**: "Task timed out after 20 minutes"
 
 **Solutions**:
 
 1. **Break into smaller tasks** - Complex tasks take time
 
-2. **Increase timeout** in `whatsapp-bot.js`:
+2. **Timeout is already 20 minutes** in `whatsapp-bot.js`:
    ```javascript
-   const EXECUTION_TIMEOUT = 1200000; // 20 minutes
+   const EXECUTION_TIMEOUT = 1200000; // 20 minutes (default)
    ```
+   Increase if needed for very long tasks.
 
 3. **Check if Claude is stuck**:
    - Look at terminal output
    - Press Ctrl+C to cancel if needed
+
+### Problem: Claude Doesn't Remember Previous Messages
+
+**Symptoms**: You answer Claude's question but it doesn't understand the context
+
+**This is now fixed!** The bot automatically continues conversations. However:
+
+1. **If restarting the bot** - Conversation history is lost when you restart
+   - Start fresh with a complete command
+
+2. **To intentionally start fresh**:
+   ```
+   /claude --new your new topic here
+   ```
+   or
+   ```
+   /claude -n your new topic here
+   ```
+
+3. **How it works**:
+   - First `/claude` message = new conversation
+   - All subsequent messages = automatically continue
+   - `--new` or `-n` = force a new conversation
 
 ---
 
